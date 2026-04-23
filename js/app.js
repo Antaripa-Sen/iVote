@@ -2,8 +2,9 @@
 // iVote — Application Logic
 // ============================================================
 
-const NEWS_API_KEY = '';
-const GROQ_API_KEY = localStorage.getItem('ivote_groq_key') || '';
+// API Keys are loaded from config.js (loaded from .env.local, localStorage, or environment)
+const NEWS_API_KEY = window.CONFIG?.NEWS_API_KEY || '';
+const GROQ_API_KEY = window.CONFIG?.GROQ_API_KEY || '';
 
 let currentCountry = 'IN';
 let checklistState = {};
