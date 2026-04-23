@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-country="IN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iVote — Your Global Election Guide</title>
+  <meta name="description"
+    content="AI-powered election platform. Personalized timelines, voter requirements, and civic guidance for every country.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ══ ONBOARDING OVERLAY ══════════════════════════════════ -->
+  <div class="onboard-overlay hidden" id="onboardOverlay">
+    <div class="onboard-box">
+      <div class="onboard-logo">🗳 iVote</div>
+      <h2 class="onboard-title">Where are you voting?</h2>
+      <p class="onboard-sub">Select your country for a fully personalized election guide — themes, data, and AI guidance
+        built for your democracy.</p>
+      <div class="onboard-grid">
+        <button class="country-tile" onclick="selectCountry('IN')"><span>🇮🇳</span><span>India</span></button>
+        <button class="country-tile" onclick="selectCountry('US')"><span>🇺🇸</span><span>United States</span></button>
+        <button class="country-tile" onclick="selectCountry('UK')"><span>🇬🇧</span><span>United Kingdom</span></button>
+        <button class="country-tile" onclick="selectCountry('CA')"><span>🇨🇦</span><span>Canada</span></button>
+        <button class="country-tile" onclick="selectCountry('AU')"><span>🇦🇺</span><span>Australia</span></button>
+        <button class="country-tile" onclick="selectCountry('FR')"><span>🇫🇷</span><span>France</span></button>
+        <button class="country-tile" onclick="selectCountry('DE')"><span>🇩🇪</span><span>Germany</span></button>
+        <button class="country-tile" onclick="selectCountry('ZA')"><span>🇿🇦</span><span>South Africa</span></button>
+      </div>
+      <button class="onboard-skip" onclick="selectCountry('DEFAULT')">Skip — browse global info →</button>
+    </div>
+  </div>
+
+  <!-- ══ NAVBAR ══════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">
+        <div class="brand-icon-box">🗳</div>
+        <span>iVote</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#news" class="nav-link">News</a>
+        <a href="#timeline" class="nav-link">Timeline</a>
+        <a href="#info" class="nav-link">Info</a>
+        <a href="#quiz" class="nav-link">Quiz</a>
+        <a href="#compare" class="nav-link">Compare</a>
+        <a href="#assistant" class="nav-link">AI Chat</a>
+      </div>
+      <div class="nav-utils" id="navUtils">
+        <select id="countrySelect" class="nav-select" onchange="selectCountry(this.value)">
+          <option value="DEFAULT">🌍 Global</option>
+          <option value="IN" selected>🇮🇳 India</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="UK">🇬🇧 United Kingdom</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="ZA">🇿🇦 South Africa</option>
+        </select>
+        <button id="themeToggle" class="theme-btn" title="Toggle theme">🌙</button>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="country-banner" id="countryBanner">
+      <span class="banner-flag" id="bannerFlag">🇮🇳</span>
+      <strong id="bannerName">India</strong>
+      <span class="banner-body" id="bannerBody">Election Commission of India</span>
+      <button class="change-btn" onclick="showOnboard()">Change Country</button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ════════════════════════════════════════════════ -->
+  <header class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <span class="pulse-dot"></span>
+          <span id="heroEyebrow">Election Commission of India · Official Guide</span>
+        </div>
+        <h1 class="hero-h1">
+          <span id="heroLine1">Your Vote.</span><br>
+          <em id="heroLine2">Your Democracy.</em>
+        </h1>
+        <p class="hero-para" id="heroPara">
+          Get the complete guide to India's election process — from voter registration and EVM voting to results day.
+          Powered by AI.
+        </p>
+        <div class="hero-btns">
+          <a href="#assistant" class="btn-hero-primary">Ask iVote AI</a>
+          <a href="#timeline" class="btn-hero-ghost">View Timeline →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="hs-num" id="hsStat1">970M+</span><span class="hs-label"
+              id="hsLbl1">Registered Voters</span></div>
+          <div class="hs-divider"></div>
+          <div class="hero-stat"><span class="hs-num" id="hsStat2">7 Phases</span><span class="hs-label"
+              id="hsLbl2">Voting Phases</span></div>
+          <div class="hs-divider"></div>
+          <div class="hero-stat"><span class="hs-num" id="hsStat3">EVM</span><span class="hs-label"
+              id="hsLbl3">Technology</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <div class="h-card">
+          <div class="h-card-num">1</div>
+          <div class="h-card-body">
+            <div class="h-card-phase" id="hcPhase1">Phase 1</div>
+            <div class="h-card-title" id="hcTitle1">Register to Vote</div>
+          </div>
+        </div>
+        <div class="h-card">
+          <div class="h-card-num">2</div>
+          <div class="h-card-body">
+            <div class="h-card-phase" id="hcPhase2">Phase 2</div>
+            <div class="h-card-title" id="hcTitle2">Campaign Period</div>
+          </div>
+        </div>
+        <div class="h-card">
+          <div class="h-card-num">3</div>
+          <div class="h-card-body">
+            <div class="h-card-phase" id="hcPhase3">Phase 3</div>
+            <div class="h-card-title" id="hcTitle3">Cast Your Vote</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flag-bar">
+      <div class="flag-stripe s1" id="fs1"></div>
+      <div class="flag-stripe s2" id="fs2"></div>
+      <div class="flag-stripe s3" id="fs3"></div>
+    </div>
+  </header>
+
+  <!-- ══ NEWS ════════════════════════════════════════════════ -->
+  <section id="news" class="section">
+    <div class="container">
+      <span class="section-eyebrow">Live Feed</span>
+      <div class="section-head-row">
+        <h2 class="section-title">
+          Political News <span class="country-pill" id="newsPill">🇮🇳 India</span>
+        </h2>
+        <button class="btn-outline-sm" onclick="fetchNews()">↺ Refresh</button>
+      </div>
+      <div class="news-grid" id="newsGrid">
+        <div class="loading-row">
+          <div class="spinner"></div><span>Loading news…</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TIMELINE ════════════════════════════════════════════ -->
+  <section id="timeline" class="section section-alt">
+    <div class="container">
+      <span class="section-eyebrow">Step by Step</span>
+      <h2 class="section-title">Election Timeline</h2>
+      <p class="section-desc">Click any phase card to ask the AI for a deeper explanation.</p>
+      <div class="timeline-wrap">
+        <div id="timelineItems"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ INFO ════════════════════════════════════════════════ -->
+  <section id="info" class="section">
+    <div class="container">
+      <span class="section-eyebrow">Requirements</span>
+      <h2 class="section-title">Voting Information</h2>
+      <p class="section-desc">Everything you need to know before casting your ballot.</p>
+      <div class="info-cards" id="infoCards">
+        <div class="info-card">
+          <div class="info-card-icon">🪪</div>
+          <h3>ID Requirements</h3>
+          <p id="infoReq">Select a country to view.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">🗳</div>
+          <h3>Voting Methods</h3>
+          <ul id="infoMethods">
+            <li>Select a country to view.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">📋</div>
+          <h3>Registration</h3>
+          <p id="infoReg">Select a country to view.</p>
+        </div>
+      </div>
+      <div class="checklist-box">
+        <div class="checklist-head">
+          <div>
+            <h3>Voter Readiness Checklist</h3>
+            <p class="checklist-sub">Track your steps before election day</p>
+          </div>
+          <div class="pct-badge" id="pctBadge">0%</div>
+        </div>
+        <div class="prog-track">
+          <div class="prog-fill" id="progressBar"></div>
+        </div>
+        <div class="cl-list" id="checklistItems"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUIZ ════════════════════════════════════════════════ -->
+  <section id="quiz" class="section section-alt">
+    <div class="container">
+      <span class="section-eyebrow">Challenge</span>
+      <h2 class="section-title">Test Your Knowledge</h2>
+      <p class="section-desc">Country-specific quiz questions drawn from real election rules.</p>
+      <div class="quiz-wrap">
+        <div class="quiz-card" id="quizCard">
+          <div class="quiz-top">
+            <span id="quizProgText">Question 1 of 5</span>
+            <span class="quiz-score" id="quizScoreBadge">★ 0 pts</span>
+          </div>
+          <div class="q-track">
+            <div class="q-fill" id="quizProgFill"></div>
+          </div>
+          <div class="quiz-q" id="quizQuestion">Loading…</div>
+          <div class="quiz-opts" id="quizOptions"></div>
+          <div class="quiz-feedback" id="quizFeedback" style="display:none;"></div>
+          <button class="btn-primary quiz-next-btn" id="quizNextBtn" style="display:none;" onclick="nextQuestion()">Next
+            Question →</button>
+        </div>
+        <div class="quiz-result" id="quizResult" style="display:none;">
+          <div class="result-emoji" id="resultEmoji">🏆</div>
+          <h2 class="section-title" id="resultTitle">Quiz Complete!</h2>
+          <p class="result-desc" id="resultDesc"></p>
+          <div class="result-score" id="resultScore">0/5</div>
+          <button class="btn-primary" style="margin:0 auto;display:flex;" onclick="restartQuiz()">Play Again ↺</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ COMPARE ═════════════════════════════════════════════ -->
+  <section id="compare" class="section">
+    <div class="container">
+      <span class="section-eyebrow">New Feature</span>
+      <h2 class="section-title">Compare Countries</h2>
+      <p class="section-desc">Side-by-side breakdown of election systems around the world.</p>
+      <div class="compare-pickers">
+        <select id="compareA" class="compare-select" onchange="buildComparison()">
+          <option value="IN">🇮🇳 India</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="UK">🇬🇧 United Kingdom</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="ZA">🇿🇦 South Africa</option>
+        </select>
+        <div class="vs-tag">VS</div>
+        <select id="compareB" class="compare-select" onchange="buildComparison()">
+          <option value="US">🇺🇸 United States</option>
+          <option value="IN">🇮🇳 India</option>
+          <option value="UK">🇬🇧 United Kingdom</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="ZA">🇿🇦 South Africa</option>
+        </select>
+      </div>
+      <div class="compare-table" id="compareGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══ AI ASSISTANT ════════════════════════════════════════ -->
+  <section id="assistant" class="section section-alt">
+    <div class="container">
+      <span class="section-eyebrow">AI Powered</span>
+      <h2 class="section-title">iVote AI Assistant</h2>
+      <p class="section-desc">Powered by Claude AI. Ask anything about elections, rights, or voting procedures.</p>
+      <div class="chat-wrap">
+        <div class="chat-box">
+          <div class="chat-head">
+            <div class="chat-head-left">
+              <div class="ai-avatar">✦</div>
+              <div>
+                <div class="chat-name">iVote AI</div>
+                <div class="chat-status" id="apiNote">✅ Connected · Groq AI</div>
+              </div>
+            </div>
+            <button class="chat-clear-btn" onclick="clearChat()" title="Clear chat">🗑</button>
+          </div>
+          <div class="chat-msgs" id="chatMessages">
+            <div class="msg msg-bot">
+              <div class="msg-av">✦</div>
+              <div class="msg-bubble">
+                Hello! I'm <strong>iVote AI</strong>. I can help you understand elections, voter registration, your
+                rights at the polling station, how votes are counted, and more — for any country. What would you like to
+                know?
+              </div>
+            </div>
+          </div>
+          <div class="typing" id="typingIndicator" style="display:none;">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="quick-pills" id="quickTopics"></div>
+          <div class="chat-input-row">
+            <textarea id="chatInput" placeholder="Ask about voter registration, ID requirements, how votes are counted…"
+              onkeydown="handleKeyDown(event)" rows="1"></textarea>
+            <button id="sendBtn" class="send-btn" onclick="sendMessage()" aria-label="Send">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">🗳 iVote</div>
+        <div class="footer-links">
+          <a href="#news">News</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#info">Info</a>
+          <a href="#quiz">Quiz</a>
+          <a href="#compare">Compare</a>
+          <a href="#assistant">AI Chat</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Empowering citizens with knowledge to participate in democracy.</p>
+        <p class="footer-copy">© 2026 iVote — Your Global Democratic Guide</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>
