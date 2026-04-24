@@ -159,6 +159,12 @@ async function fetchNews() {
   const cd = COUNTRY_DATA[currentCountry] || COUNTRY_DATA.DEFAULT;
   if (!grid) return;
 
+  // Check if API key is configured
+  if (!NEWS_API_KEY) {
+    grid.innerHTML = `<div class="news-empty"><div class="news-empty-icon">📰</div><p>News API key not configured.<br><small>Set: localStorage.setItem('ivote_news_key', 'your-key')</small><br><button class="btn-outline-sm" onclick="fetchNews()" style="margin-top:.5rem">Retry</button></p></div>`;
+    return;
+  }
+
   grid.innerHTML = '<div class="loading-row"><div class="spinner"></div><span>Loading news for ' + esc(cd.name) + '…</span></div>';
 
   const q = encodeURIComponent('election OR voting OR democracy ' + cd.name);
@@ -519,9 +525,11 @@ async function sendMessage() {
   chatHistory.push({ role: 'user', content: text });
 
   const groqKey = GROQ_API_KEY;
-  if (!groqKey || groqKey === 'YOUR_GROQ_API_KEY') {
+  if (!groqKey) {
     if (typing) typing.style.display = 'none';
-    addMsg('bot', fmtBot('⚠️ Groq API key is missing. Add your key to `js/app.js` in `GROQ_API_KEY` or set `localStorage.ivote_groq_key`.'));
+    const noApiKeyMsg = `**API Key Not Configured**\n\nTo use the AI assistant with live AI responses, please configure your Groq API key:\n\n1. Get a free API key from [groq.com](https://console.groq.com)\n2. Run this in browser console:\n   \`localStorage.setItem('ivote_groq_key', 'your-key-here')\`\n3. Refresh the page\n\n**Using local fallback AI** — I can still answer many election questions!`;
+    chatHistory.push({ role: 'assistant', content: noApiKeyMsg });
+    addMsg('bot', fmtBot(noApiKeyMsg));
     isChatLoading = false;
     if (sendBtn) sendBtn.disabled = false;
     return;
@@ -1166,13 +1174,259 @@ const QUICK_TOPICS = [
 ];
 
 // ============================================================
-// DEMO RESPONSES — Fallback for AI Chat
+// DEMO RESPONSES — Enhanced local fallback when API is unavailable
 // ============================================================
 const DEMO_RESPONSES = {
-  register: '**Voter Registration**\n\nTo register to vote, you typically need to:\n- Be a citizen of voting age (usually 18+)\n- Provide proof of identity and residence\n- Register through your local election office\n- Some countries have automatic registration\n\nCheck your country\'s specific requirements for details.',
-  id: '**Voter ID Requirements**\n\nID requirements vary by country:\n- Some require government-issued photo ID\n- Others accept utility bills or bank statements\n- Many allow multiple forms of identification\n- Some countries have no ID requirements\n\nAlways check your local election office for current rules.',
-  rights: '**Voting Rights**\n\nYour voting rights typically include:\n- The right to vote if you meet age/citizenship requirements\n- Protection from voter suppression\n- Access to accurate election information\n- The ability to vote privately and securely\n- Equal treatment regardless of background\n\nRights can vary by country and jurisdiction.',
-  dates: '**Election Dates**\n\nElection timing can vary by country, but typically:\n- National elections are announced by the election commission\n- Some countries schedule voting on a specific weekday or month\n- Many hold early voting or advance voting before the main day\n- Multi-stage elections may span several weeks\n\nCheck your country\'s election authority for the exact date and deadlines.',
-  counting: '**Vote Counting**\n\nVote counting is handled by the election authority and often includes:\n- Secure collection of ballots from polling stations\n- Counting at authorized counting centers\n- Verification of totals and resolving discrepancies\n- Announcement of provisional and final results\n\nDifferent countries have different certification and result timelines.',
-  default: '**Election Questions**\n\nI\'m here to help with any questions about elections and voting! Ask me about:\n- Registration requirements\n- Voting procedures\n- Election timelines\n- Your voting rights\n- Polling locations\n- Election security\n\nWhat would you like to know?'
+  register: `**Voter Registration**
+
+To register to vote, you typically need to:
+• Be a citizen of voting age (usually 18+)
+• Provide proof of identity and residence
+• Register through your local election office
+• Some countries have automatic registration
+
+**How to register:**
+1. Visit your country's election commission website
+2. Fill out the voter registration form
+3. Submit required documents (ID, proof of address)
+4. Wait for your voter ID card to arrive
+
+Check your country's specific requirements for details.`,
+
+  id: `**Voter ID Requirements**
+
+ID requirements vary by country:
+• **Photo ID**: Government-issued passport, driver's license
+• **Proof of Address**: Utility bills, bank statements
+• **Some countries**: No ID required, signature sufficient
+• **Multiple forms**: Often accepted as alternatives
+
+**Commonly accepted IDs:**
+- Passport
+- Driver's license
+- National ID card
+- Utility bill (recent)
+- Bank statement
+
+Always check your local election office for current rules.`,
+
+  rights: `**Voting Rights**
+
+Your voting rights typically include:
+• **Right to Vote** - If you meet age/citizenship requirements
+• **Protection** - From voter suppression or discrimination
+• **Information** - Access to accurate election information
+• **Privacy** - Vote privately and securely
+• **Equal Treatment** - Regardless of background
+
+**Additional rights may include:**
+- Early voting or advance voting options
+- Assistance at polling station if needed
+- Provisional ballot if eligibility is uncertain
+- Right to observe the counting process
+
+Rights can vary by country and jurisdiction.`,
+
+  dates: `**Election Dates**
+
+Election timing varies by country:
+• **Scheduled Elections** - Announced by election commission
+• **Fixed Terms** - Some countries have fixed election cycles
+• **Early Elections** - Can be called unexpectedly
+
+**Key deadlines to remember:**
+- Voter registration deadline
+- Postal/absent voting application deadline
+- Early voting period
+- Election Day
+
+Check your country's election authority for exact dates.`,
+
+  counting: `**Vote Counting**
+
+Vote counting process:
+• **Collection** - Ballots securely transported from polling stations
+• **Sorting** - Ballots organized by constituency
+• **Counting** - Manual or electronic tallying
+• **Verification** - Cross-checking totals
+• **Certification** - Official announcement of results
+
+**Result announcement:**
+- Provisional results often same night
+- Final certified results may take days
+- Results published online and in media
+
+Different countries have different timelines.`,
+
+  vote: `**How to Vote**
+
+**Step-by-step voting process:**
+1. **Locate your polling station** - Check voter registration
+2. **Go to the station** - Bring required ID
+3. **Check in** - Verify your identity
+4. **Get your ballot** - Mark your choice
+5. **Cast your ballot** - Place in ballot box
+
+**Voting methods vary:**
+- Paper ballots
+- Electronic voting machines (EVM)
+- Online/digital voting (some countries)
+
+Contact your local election office for specific procedures.`,
+
+  polling: `**Polling Station Information**
+
+**Finding your polling station:**
+• Check voter registration confirmation
+• Visit election commission website
+• Use polling station locator tools
+
+**What to expect:**
+• Bring valid ID
+• Queue may be long on election day
+• Staff will verify your identity
+• You'll receive your ballot or be directed to machine
+
+**If problems arise:**
+• Ask election officials for help
+• Request provisional ballot if eligibility questioned
+• Report any issues to election commission`,
+
+  postal: `**Postal & Absent Voting**
+
+**Who can vote by mail:**
+• Citizens abroad
+• Military personnel
+• Those unable to vote in person
+• Some countries: anyone can request mail-in ballot
+
+**How to apply:**
+1. Download application from election website
+2. Fill out required information
+3. Submit before deadline
+4. Receive ballot by mail
+5. Return completed ballot
+
+**Important:**
+• Apply early - processing takes time
+• Follow instructions carefully
+• Mail ballot before deadline
+• Track your ballot status online`,
+
+  candidate: `**Finding Candidate Information**
+
+**Where to find candidate details:**
+• Election commission website
+• Official candidate lists
+• News coverage
+• Candidate debates
+• Party websites
+
+**What to research:**
+• Party platform and policies
+• Candidate's voting record (incumbents)
+• Key issues and priorities
+• Experience and qualifications
+• Controversies or scandals
+
+**Make an informed choice:**
+• Attend local debates
+• Read voter guides
+• Check fact-checking sources
+• Compare party manifestos`,
+
+  security: `**Election Security**
+
+**Voting is secure because:**
+• **Verified Identity** - Multiple verification steps
+• **Secret Ballot** - Your vote is confidential
+• **Trained Officials** - Polling station workers trained
+• **Observers** - Party representatives monitor process
+• **Audit Trails** - Paper trails or logs maintained
+
+**If you suspect problems:**
+• Report to election officials immediately
+• Document any irregularities
+• Contact election commission hotline
+• Use provisional ballot if uncertain
+
+**Your vote is protected** - It's illegal to buy or coerce votes.`,
+
+  first: `**First-Time Voter Guide**
+
+**Congratulations on voting! Here's what to know:**
+
+1. **Register** - Ensure you're registered before deadline
+2. **Know your polling station** - Locate it before election day
+3. **Bring ID** - Check what identification is needed
+4. **Research** - Learn about candidates and issues
+5. **Go early** - Avoid crowds by voting early if possible
+
+**Tips for first-time voters:**
+• Don't be afraid to ask officials for help
+• Take your time in the voting booth
+• Your vote is secret - no one can see your choice
+• If using EVM, confirm your selection before submitting
+
+Your vote matters - make it count!`,
+
+  default: `**I'm here to help with election questions!**
+
+You can ask me about:
+• **Registration** - How to register to vote
+• **ID Requirements** - What ID do you need?
+• **Voting Process** - How to cast your vote
+• **Polling Stations** - Where to vote
+• **Election Dates** - When are elections?
+• **Postal Voting** - Vote by mail
+• **Your Rights** - What are your voting rights?
+• **Vote Counting** - How are votes counted?
+• **Candidates** - How to research candidates
+• **Security** - Is voting secure?
+
+What would you like to know?`
 };
+
+// Enhanced demoReply with more comprehensive matching
+function demoReply(input) {
+  const l = input.toLowerCase();
+  
+  if (l.includes('register') || l.includes('enroll') || l.includes('sign up') || l.includes('how to vote') || l.includes('can i vote')) {
+    return DEMO_RESPONSES.register;
+  }
+  if (l.includes('id') || l.includes('document') || l.includes('passport') || l.includes('license') || l.includes('proof') || l.includes('required')) {
+    return DEMO_RESPONSES.id;
+  }
+  if (l.includes('right') || l.includes('eligibility') || l.includes('eligible') || l.includes('can i') || l.includes('who can')) {
+    return DEMO_RESPONSES.rights;
+  }
+  if (l.includes('date') || l.includes('when') || l.includes('day') || l.includes('election day') || l.includes('vote date') || l.includes('schedule') || l.includes('next')) {
+    return DEMO_RESPONSES.dates;
+  }
+  if (l.includes('count') || l.includes('result') || l.includes('certif') || l.includes('tally') || l.includes('winner') || l.includes('outcome')) {
+    return DEMO_RESPONSES.counting;
+  }
+  if (l.includes('how to') || l.includes('process') || l.includes('procedure') || l.includes('step') || l.includes('cast') || l.includes('mark')) {
+    return DEMO_RESPONSES.vote;
+  }
+  if (l.includes('polling') || l.includes('location') || l.includes('where') || l.includes('station') || l.includes('booth') || l.includes('place')) {
+    return DEMO_RESPONSES.polling;
+  }
+  if (l.includes('postal') || l.includes('mail') || l.includes('absent') || l.includes('abroad') || l.includes('overseas') || l.includes('remote')) {
+    return DEMO_RESPONSES.postal;
+  }
+  if (l.includes('candidate') || l.includes('party') || l.includes('who is') || l.includes('policy') || l.includes('manifesto')) {
+    return DEMO_RESPONSES.candidate;
+  }
+  if (l.includes('security') || l.includes('secure') || l.includes('fraud') || l.includes('safe') || l.includes('rig') || l.includes('cheat')) {
+    return DEMO_RESPONSES.security;
+  }
+  if (l.includes('first') || l.includes('new') || l.includes('young') || l.includes('debut') || l.includes('never voted')) {
+    return DEMO_RESPONSES.first;
+  }
+  if (l.includes('help') || l.includes('what can you') || l.includes('do you') || l.includes('ask you')) {
+    return DEMO_RESPONSES.default;
+  }
+  
+  return DEMO_RESPONSES.default;
+}
