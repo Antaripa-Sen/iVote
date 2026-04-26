@@ -1,3 +1,9 @@
+/* Hide Google Translate UI */
+.goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+#google_translate_element { display: none !important; }
+.goog-logo-link, .goog-te-gadget { display: none !important; }
+.goog-te-combo { color: #111 !important; }
 /* =============================================================
    iVote — Official Civic Platform CSS
    Style: Gov.uk × ECI — clean, authoritative, high-contrast
@@ -2791,6 +2797,67 @@ ul {
   flex-shrink: 0;
 }
 
+/* Language Selector */
+.language-selector {
+  display: flex;
+  align-items: center;
+}
+
+.language-select {
+  background: rgba(255, 255, 255, .1);
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: var(--radius-sm);
+  padding: .4rem .8rem;
+  font-family: var(--f-body);
+  font-size: .82rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .6rem center;
+  padding-right: 2rem;
+  min-width: 100px;
+}
+
+.language-select:hover {
+  background: rgba(255, 255, 255, .15);
+  border-color: rgba(255, 255, 255, .4);
+}
+
+.language-select:focus {
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 2px rgba(26, 79, 160, 0.3);
+}
+
+.language-select option {
+  background: #1a3a6b;
+  color: #fff;
+}
+
+/* RTL Support for future languages */
+[dir="rtl"] .language-select {
+  background-position: left .6rem center;
+  padding-right: .8rem;
+  padding-left: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M9 1l-4 4-4-4' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Smooth language transition */
+[data-i18n],
+[data-i18n-placeholder],
+[data-i18n-title] {
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.language-changing [data-i18n] {
+  opacity: 0.5;
+}
+
 .nav-select {
   background: rgba(255, 255, 255, .1);
   color: #fff !important;
@@ -4441,17 +4508,12 @@ ul {
 
 /* ══════════════════════════════════════════════════════════
    ENHANCED COUNTRY-SPECIFIC BACKGROUND WATERMARKS & EFFECTS
-   Institutional + Cultural Mood for Each Nation
    ══════════════════════════════════════════════════════════ */
 
-/* ── INDIA: Ashoka Chakra + Tricolor Gradient + Devanagari ── */
 [data-country="IN"] body::before {
   background-image: 
-    /* Large soft Ashoka Chakra watermark */
     radial-gradient(circle at 78% 22%, rgba(255, 106, 0, 0.04) 2%, transparent 4%),
-    /* Diagonal saffron-to-green gradient wash */
     linear-gradient(135deg, rgba(255, 106, 0, 0.08) 0%, transparent 28%, rgba(4, 106, 56, 0.07) 80%, transparent 100%),
-    /* Soft radial glows */
     radial-gradient(circle at 84% 18%, rgba(255, 145, 0, 0.05), transparent 16%),
     radial-gradient(circle at 18% 78%, rgba(4, 106, 56, 0.04), transparent 16%),
     radial-gradient(circle at 62% 72%, rgba(0, 53, 128, 0.04), transparent 18%);
@@ -4460,46 +4522,37 @@ ul {
 
 [data-country="IN"] body::after {
   background-image: 
-    /* Soft Devanagari texture shimmer */
     radial-gradient(circle at 12% 18%, rgba(255, 145, 0, 0.05), transparent 12%),
     radial-gradient(circle at 78% 22%, rgba(4, 106, 56, 0.04), transparent 14%),
     radial-gradient(circle at 52% 72%, rgba(0, 53, 128, 0.05), transparent 18%);
   opacity: 0.28 !important;
 }
 
-/* ── USA: Star Field + Radial Glow + Stripe Hint ── */
 [data-country="US"] body::before {
   background-image:
-    /* Multiple soft star glows */
     radial-gradient(circle at 22% 18%, rgba(178, 34, 52, 0.06), transparent 12%),
     radial-gradient(circle at 82% 18%, rgba(0, 53, 128, 0.06), transparent 12%),
     radial-gradient(circle at 15% 65%, rgba(255, 255, 255, 0.05), transparent 10%),
     radial-gradient(circle at 88% 72%, rgba(178, 34, 52, 0.04), transparent 10%),
-    /* Subtle stripe diagonal hint */
     linear-gradient(135deg, rgba(0, 53, 128, 0.04), transparent 25%, rgba(178, 34, 52, 0.03) 65%, transparent 90%);
   opacity: 0.38 !important;
 }
 
 [data-country="US"] body::after {
   background-image:
-    /* Navy radial glow center */
     radial-gradient(circle at 50% 45%, rgba(0, 53, 128, 0.04), transparent 20%);
   opacity: 0.22 !important;
 }
 
-/* ── UK: Union Jack Geometry + Pinstripes + Blueprint Grid ── */
 [data-country="UK"] body::before {
   background-image:
-    /* Vertical pinstripes */
     repeating-linear-gradient(90deg, 
       rgba(1, 33, 105, 0.02) 0px, 
       rgba(1, 33, 105, 0.02) 2px, 
       transparent 2px, 
       transparent 24px),
-    /* Diagonal Union Jack hints */
     linear-gradient(45deg, rgba(1, 33, 105, 0.03), transparent 40%),
     linear-gradient(-45deg, rgba(200, 16, 46, 0.03), transparent 40%),
-    /* Soft geometric shapes */
     radial-gradient(circle at 18% 20%, rgba(1, 33, 105, 0.05), transparent 14%),
     radial-gradient(circle at 80% 22%, rgba(200, 16, 46, 0.04), transparent 14%);
   opacity: 0.35 !important;
@@ -4507,7 +4560,6 @@ ul {
 
 [data-country="UK"] body::after {
   background-image:
-    /* Blueprint-style grid */
     linear-gradient(0deg, 
       rgba(200, 16, 46, 0.01) 0%, 
       rgba(200, 16, 46, 0.01) 1px, 
@@ -4521,16 +4573,12 @@ ul {
   opacity: 0.18 !important;
 }
 
-/* ── CANADA: Maple Leaf Watermark + Red Gradient Edges ── */
 [data-country="CA"] body::before {
   background-image:
-    /* Large soft maple leaf effect via radial */
     radial-gradient(circle at 50% 40%, rgba(200, 16, 46, 0.08), transparent 22%),
-    /* Red gradient from corners fading inward */
     radial-gradient(circle at 8% 15%, rgba(200, 16, 46, 0.04), transparent 18%),
     radial-gradient(circle at 92% 20%, rgba(200, 16, 46, 0.04), transparent 18%),
     radial-gradient(circle at 50% 88%, rgba(200, 16, 46, 0.03), transparent 20%),
-    /* Subtle white gradient */
     radial-gradient(circle at 72% 22%, rgba(255, 255, 255, 0.05), transparent 15%);
   opacity: 0.40 !important;
 }
@@ -4542,16 +4590,12 @@ ul {
   opacity: 0.24 !important;
 }
 
-/* ── AUSTRALIA: Southern Cross + Wave Shapes + Blue Haze ── */
 [data-country="AU"] body::before {
   background-image:
-    /* Southern Cross star clusters */
     radial-gradient(circle at 20% 20%, rgba(0, 0, 139, 0.06), transparent 12%),
     radial-gradient(circle at 25% 28%, rgba(0, 0, 139, 0.04), transparent 8%),
     radial-gradient(circle at 75% 20%, rgba(255, 205, 0, 0.05), transparent 14%),
-    /* Abstract subtle wave shapes */
     radial-gradient(ellipse 600px 200px at 50% 100%, rgba(0, 0, 139, 0.04), transparent 30%),
-    /* Deep blue gradient haze */
     linear-gradient(180deg, rgba(0, 0, 139, 0.03), transparent 40%, rgba(0, 0, 139, 0.02) 100%);
   opacity: 0.36 !important;
 }
@@ -4563,10 +4607,8 @@ ul {
   opacity: 0.20 !important;
 }
 
-/* ── FRANCE: Vertical Tricolor Bands + Paper Grain ── */
 [data-country="FR"] body::before {
   background-image:
-    /* Vertical tricolor light bands with soft transitions */
     linear-gradient(90deg, 
       rgba(0, 35, 148, 0.04) 0%, 
       rgba(0, 35, 148, 0.02) 28%, 
@@ -4576,13 +4618,11 @@ ul {
       transparent 62%, 
       rgba(237, 41, 57, 0.02) 70%, 
       rgba(237, 41, 57, 0.03) 100%),
-    /* Paper grain texture */
     repeating-linear-gradient(45deg, 
       rgba(0, 38, 84, 0.008) 0px, 
       rgba(0, 38, 84, 0.008) 2px, 
       transparent 2px, 
       transparent 4px),
-    /* Soft radial glow */
     radial-gradient(circle at 50% 50%, rgba(237, 41, 57, 0.02), transparent 40%);
   opacity: 0.38 !important;
 }
@@ -4593,10 +4633,8 @@ ul {
   opacity: 0.22 !important;
 }
 
-/* ── GERMANY: Horizontal Bands + Grid Overlay + Angular Geometry ── */
 [data-country="DE"] body::before {
   background-image:
-    /* Horizontal band shadows */
     linear-gradient(180deg, 
       rgba(51, 51, 51, 0.04) 0%, 
       transparent 15%, 
@@ -4604,7 +4642,6 @@ ul {
       transparent 50%, 
       rgba(255, 206, 0, 0.02) 70%, 
       transparent 85%),
-    /* Clean grid overlay */
     linear-gradient(0deg, 
       rgba(51, 51, 51, 0.01) 0%, 
       rgba(51, 51, 51, 0.01) 1px, 
@@ -4615,7 +4652,6 @@ ul {
       rgba(204, 0, 0, 0.01) 1px, 
       transparent 1px, 
       transparent 80px),
-    /* Subtle angular geometry */
     linear-gradient(45deg, rgba(204, 0, 0, 0.02), transparent 30%);
   opacity: 0.36 !important;
 }
@@ -4626,10 +4662,8 @@ ul {
   opacity: 0.20 !important;
 }
 
-/* ── SOUTH AFRICA: Diagonal Ribbons + Multi-color Gradient ── */
 [data-country="ZA"] body::before {
   background-image:
-    /* Soft diagonal ribbon shapes inspired by flag layout */
     linear-gradient(130deg, 
       rgba(0, 122, 77, 0.06) 0%, 
       rgba(0, 122, 77, 0.02) 18%, 
@@ -4639,7 +4673,6 @@ ul {
       transparent 72%, 
       rgba(222, 56, 49, 0.03) 85%, 
       transparent 100%),
-    /* Muted multi-color gradient blending */
     radial-gradient(circle at 20% 20%, rgba(0, 122, 77, 0.05), transparent 14%),
     radial-gradient(circle at 80% 20%, rgba(255, 182, 18, 0.04), transparent 14%),
     radial-gradient(circle at 55% 70%, rgba(222, 56, 49, 0.03), transparent 16%);
@@ -4652,14 +4685,11 @@ ul {
   opacity: 0.24 !important;
 }
 
-/* ── DEFAULT/GLOBAL: Subtle World Map + Grid Texture ── */
 [data-country="DEFAULT"] body::before {
   background-image:
-    /* Light world map outline suggestion */
     radial-gradient(circle at 20% 18%, rgba(79, 95, 129, 0.05), transparent 14%),
     radial-gradient(circle at 80% 22%, rgba(112, 139, 175, 0.04), transparent 16%),
     radial-gradient(circle at 50% 78%, rgba(211, 224, 236, 0.05), transparent 18%),
-    /* Minimal dot/grid texture */
     radial-gradient(circle 1px at 15% 15%, rgba(112, 139, 175, 0.06), transparent 1px),
     radial-gradient(circle 1px at 85% 80%, rgba(79, 95, 129, 0.04), transparent 1px);
   opacity: 0.36 !important;
@@ -4755,45 +4785,395 @@ ul {
   }
 }
 
+/* ══════════════════════════════════════════════════════════
+   @media(max-width:600px) — THE CLOSING BRACE IS CORRECT HERE
+   Watermarks come AFTER this block, NOT inside it
+   ══════════════════════════════════════════════════════════ */
 @media(max-width:600px) {
-  .hero-h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero-stats {
-    gap: 1.25rem;
-  }
-
-  .section {
-    padding: 3.5rem 0;
-  }
-
-  .section-title {
-    font-size: 1.7rem;
-  }
-
-  .container {
-    padding: 0 1.25rem;
-  }
-
+  .hero-h1 { font-size: 2.2rem; }
+  .hero-stats { gap: 1.25rem; }
+  .section { padding: 3.5rem 0; }
+  .section-title { font-size: 1.7rem; }
+  .container { padding: 0 1.25rem; }
   .compare-header-row,
-  .compare-row {
-    grid-template-columns: 100px 1fr 1fr;
-  }
+  .compare-row { grid-template-columns: 100px 1fr 1fr; }
+  .compare-pickers { flex-direction: column; gap: 1rem; }
+  .chat-msgs { height: 320px; }
+  .footer-top { flex-direction: column; }
+  .hero::before { display: none !important; }
+}
+/* ^^^ @media(max-width:600px) ENDS HERE — everything below is outside it ^^^ */
 
-  .compare-pickers {
-    flex-direction: column;
-    gap: 1rem;
-  }
+/* ══════════════════════════════════════════════════════════
+   SECTION WATERMARKS — outside any media query, applies to ALL screens
+   ══════════════════════════════════════════════════════════ */
 
-  .chat-msgs {
-    height: 320px;
-  }
+.section,
+.section-alt {
+  position: relative;
+  overflow: hidden;
+}
 
-  .footer-top {
-    flex-direction: column;
-  }
+.section > .container,
+.section-alt > .container {
+  position: relative;
+  z-index: 1;
+}
 
+/* ── INDIA: Ashoka Chakra ☸ ── */
+[data-country="IN"] .section-alt::before {
+  content: '☸';
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(320px, 60vw, 600px);
+  line-height: 1;
+  color: #FF6A00;
+  opacity: 0.10;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="IN"] .section:not(.section-alt)::before {
+  content: '☸';
+  position: absolute;
+  left: -3%;
+  bottom: -8%;
+  font-size: clamp(260px, 48vw, 480px);
+  line-height: 1;
+  color: #046A38;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── USA: Star ★ ── */
+[data-country="US"] .section-alt::before {
+  content: '★';
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(300px, 55vw, 560px);
+  line-height: 1;
+  color: #BF0A30;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="US"] .section:not(.section-alt)::before {
+  content: '★';
+  position: absolute;
+  left: -2%;
+  bottom: -6%;
+  font-size: clamp(240px, 42vw, 440px);
+  line-height: 1;
+  color: #002868;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── UK: Crown ♛ ── */
+[data-country="UK"] .section-alt::before {
+  content: '♛';
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(280px, 52vw, 520px);
+  line-height: 1;
+  color: #012169;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="UK"] .section:not(.section-alt)::before {
+  content: '♛';
+  position: absolute;
+  left: -3%;
+  bottom: -6%;
+  font-size: clamp(220px, 40vw, 420px);
+  line-height: 1;
+  color: #C8102E;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── CANADA: Maple Leaf 🍁 ── */
+[data-country="CA"] .section-alt::before {
+  content: '🍁';
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(280px, 52vw, 520px);
+  line-height: 1;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px) grayscale(10%);
+}
+
+[data-country="CA"] .section:not(.section-alt)::before {
+  content: '🍁';
+  position: absolute;
+  left: -2%;
+  bottom: -8%;
+  font-size: clamp(220px, 40vw, 420px);
+  line-height: 1;
+  opacity: 0.11;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px) grayscale(20%);
+}
+
+/* ── AUSTRALIA: Star ✦ ── */
+[data-country="AU"] .section-alt::before {
+  content: '✦';
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(280px, 52vw, 520px);
+  line-height: 1;
+  color: #00008B;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="AU"] .section:not(.section-alt)::before {
+  content: '✦';
+  position: absolute;
+  left: -2%;
+  bottom: -8%;
+  font-size: clamp(220px, 40vw, 420px);
+  line-height: 1;
+  color: #CC0000;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── FRANCE: Fleur-de-lis ⚜ ── */
+[data-country="FR"] .section-alt::before {
+  content: '⚜';
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(280px, 52vw, 520px);
+  line-height: 1;
+  color: #002395;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="FR"] .section:not(.section-alt)::before {
+  content: '⚜';
+  position: absolute;
+  left: -2%;
+  bottom: -6%;
+  font-size: clamp(220px, 40vw, 420px);
+  line-height: 1;
+  color: #ED2939;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── GERMANY: Iron Cross ✠ ── */
+[data-country="DE"] .section-alt::before {
+  content: '✠';
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(280px, 52vw, 520px);
+  line-height: 1;
+  color: #CC0000;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="DE"] .section:not(.section-alt)::before {
+  content: '✠';
+  position: absolute;
+  left: -2%;
+  bottom: -6%;
+  font-size: clamp(220px, 40vw, 420px);
+  line-height: 1;
+  color: #FFCE00;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── SOUTH AFRICA: Sun ✺ ── */
+[data-country="ZA"] .section-alt::before {
+  content: '✺';
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(280px, 52vw, 520px);
+  line-height: 1;
+  color: #007A4D;
+  opacity: 0.10;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+[data-country="ZA"] .section:not(.section-alt)::before {
+  content: '✺';
+  position: absolute;
+  left: -2%;
+  bottom: -6%;
+  font-size: clamp(220px, 40vw, 420px);
+  line-height: 1;
+  color: #FFB612;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(0px);
+}
+
+/* ── DEFAULT / GLOBAL: Globe 🌍 ── */
+[data-country="DEFAULT"] .section-alt::before {
+  content: '🌍';
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(260px, 48vw, 480px);
+  line-height: 1;
+  opacity: 0.10;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(1px) grayscale(20%);
+}
+
+[data-country="DEFAULT"] .section:not(.section-alt)::before {
+  content: '🌍';
+  position: absolute;
+  left: -2%;
+  bottom: -6%;
+  font-size: clamp(200px, 38vw, 380px);
+  line-height: 1;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(1px) grayscale(30%);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HERO watermarks — visible on desktop, hidden on mobile <480px
+   ══════════════════════════════════════════════════════════ */
+[data-country="IN"] .hero::before {
+  font-size: 20rem !important;
+  opacity: 0.07 !important;
+  filter: none !important;
+}
+[data-country="US"] .hero::before  { font-size: 22rem !important; opacity: 0.06 !important; }
+[data-country="UK"] .hero::before  { font-size: 18rem !important; opacity: 0.07 !important; }
+[data-country="CA"] .hero::before  { font-size: 16rem !important; opacity: 0.10 !important; }
+[data-country="AU"] .hero::before  { font-size: 16rem !important; opacity: 0.08 !important; }
+[data-country="FR"] .hero::before  { font-size: 18rem !important; opacity: 0.07 !important; }
+[data-country="DE"] .hero::before  { font-size: 16rem !important; opacity: 0.08 !important; }
+[data-country="ZA"] .hero::before  { font-size: 16rem !important; opacity: 0.08 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   SKELETON SHIMMER
+   ══════════════════════════════════════════════════════════ */
+.skeleton-card { pointer-events: none; }
+.skeleton {
+  background: linear-gradient(90deg, var(--border,#e8e8e8) 25%, var(--off-white,#f5f5f5) 50%, var(--border,#e8e8e8) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm,.5rem);
+}
+.skeleton-img  { width: 100%; height: 180px; border-radius: 0; }
+.skeleton-line { height: 13px; margin: .65rem 0; border-radius: 4px; }
+.skeleton-line.short  { width: 45%; }
+.skeleton-line.medium { width: 72%; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(90deg, var(--border,#2e3a4e) 25%, rgba(255,255,255,.05) 50%, var(--border,#2e3a4e) 75%);
+  background-size: 200% 100%;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BANNER FIX
+   ══════════════════════════════════════════════════════════ */
+.country-banner { flex-wrap: wrap; height: auto; min-height: var(--banner-h); padding: .4rem 1.25rem; gap: .4rem .75rem; }
+.banner-body { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+@media (max-width: 480px) {
+  .banner-body { display: none; }
+  .country-banner { gap: .4rem .5rem; padding: .4rem 1rem; }
+  .banner-flag { font-size: 1rem; }
+  #bannerName { font-size: .8rem; }
+  .change-btn { margin-left: auto; font-size: .72rem; padding: .22rem .6rem; }
+}
+@media (max-width: 900px) {
+  .country-banner { overflow: hidden; }
+  .banner-body { max-width: 200px; font-size: .75rem; }
+}
+.news-img { width: 100%; height: 200px; object-fit: cover; object-position: center top; background: var(--border,#e8e8e8); display: block; }
+.news-error-box { display: none !important; }
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; width: 100%; }
+[data-country="IN"] .news-img  { background: #fff4e6; }
+[data-country="US"] .news-img  { background: #fce8ec; }
+[data-country="UK"] .news-img  { background: #e6eaf7; }
+[data-country="AU"] .news-img  { background: #e6e6f5; }
+[data-country="CA"] .news-img  { background: #ffe8e7; }
+[data-country="FR"] .news-img  { background: #e6eaf7; }
+[data-country="DE"] .news-img  { background: #f5f5f5; }
+[data-country="ZA"] .news-img  { background: #e6f5ef; }
+@media (max-width: 480px) {
+  .nav-inner { padding: 0 1rem; gap: .75rem; }
+  .nav-brand { font-size: 1.25rem; }
+  .brand-icon-box { width: 30px; height: 30px; font-size: .9rem; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE WATERMARKS — visible on ALL screen sizes
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .section::before,
+  .section-alt::before {
+    font-size: clamp(180px, 58vw, 300px) !important;
+    opacity: 0.09 !important;
+    filter: blur(0px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .section::before,
+  .section-alt::before {
+    font-size: clamp(140px, 52vw, 230px) !important;
+    opacity: 0.08 !important;
+    filter: blur(0px) !important;
+  }
   .hero::before {
     display: none !important;
   }

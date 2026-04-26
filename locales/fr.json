@@ -1,0 +1,130 @@
+{
+  "app": {
+    "name": "iVote",
+    "tagline": "Votre Guide Électoral Mondial"
+  },
+  "nav": {
+    "news": "Actualités",
+    "timeline": "Chronologie",
+    "info": "Informations",
+    "quiz": "Quiz",
+    "compare": "Comparer",
+    "aiChat": "Chat IA"
+  },
+  "onboard": {
+    "title": "Où votez-vous?",
+    "subtitle": "Sélectionnez votre pays pour un guide electoral entièrement personnalisé — thèmes, données et guidance IA conçus pour votre démocratie.",
+    "skip": "Passer — parcourir les informations globales →"
+  },
+  "hero": {
+    "eyebrow": "Commission Électorale de Inde · Guide Officiel",
+    "line1": "Votre Vote.",
+    "line2": "Votre Démocratie.",
+    "para": "Obtenez le guide complet du processus electoral indien — de l'inscription des électeurs au vote électronique. Alimenté par l'IA.",
+    "btnPrimary": "Demander à iVote IA",
+    "btnGhost": "Voir la Chronologie →"
+  },
+  "stats": {
+    "stat1": "900M+",
+    "label1": "Électeurs Éligibles",
+    "stat2": "1M+",
+    "label2": "Bureaux de Vote",
+    "stat3": "28",
+    "label3": "Jours en Moyenne"
+  },
+  "banner": {
+    "changeCountry": "Changer de Pays"
+  },
+  "news": {
+    "title": "Dernières Actualités Électorales",
+    "pill": "Inde",
+    "readMore": "Lire Plus",
+    "noNews": "Aucune actualité disponible pour le moment",
+    "loading": "Chargement des actualités..."
+  },
+  "timeline": {
+    "title": "Chronologie Électorale",
+    "subtitle": "Phases clés du processus electoral",
+    "phase": "Phase",
+    "title1": "Code de Conduite",
+    "title2": "Jours de Vote",
+    "title3": "Déclaration des Résultats"
+  },
+  "info": {
+    "title": "Informations Électeur",
+    "subtitle": "Tout ce que vous devez savoir sur le vote",
+    "register": "S'inscrire pour Voter",
+    "verify": "Vérifier le Nom",
+    "idCard": "Obtenir la Carte d'Électeur",
+    "faq": "FAQ",
+    "resources": "Ressources"
+  },
+  "checklist": {
+    "title": "Liste de Contrôle de l'Électeur",
+    "subtitle": "Suivez votre préparation au vote",
+    "complete": "Terminé",
+    "pending": "En Attente"
+  },
+  "quiz": {
+    "title": "Quiz Électoral",
+    "subtitle": "Testez vos connaissances sur les élections",
+    "start": "Commencer le Quiz",
+    "next": "Question Suivante",
+    "submit": "Soumettre",
+    "score": "Votre Score",
+    "restart": "Réessayer",
+    "question": "Question",
+    "of": "sur"
+  },
+  "compare": {
+    "title": "Comparer les Élections",
+    "subtitle": "Voyez comment différents pays organisent leurs élections",
+    "select1": "Sélectionner le Premier Pays",
+    "select2": "Sélectionner le Deuxième Pays",
+    "compareBtn": "Comparer",
+    "population": "Population",
+    "votingAge": "Âge de Vote",
+    "system": "Système Électoral",
+    "lastElection": "Dernière Élection",
+    "nextElection": "Prochaine Élection"
+  },
+  "assistant": {
+    "title": "Assistant iVote IA",
+    "subtitle": "Posez n'importe quelle question sur les élections",
+    "placeholder": "Posez une question sur les élections, le vote ou la démocratie...",
+    "send": "Envoyer",
+    "thinking": "Réflexion en cours...",
+    "clear": "Effacer le Chat",
+    "welcome": "Bonjour! Je suis votre guide electoral IA. Posez-moi n'importe quelle question sur le vote, les élections ou la démocratie!"
+  },
+  "footer": {
+    "about": "À Propos",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "contact": "Contact",
+    "disclaimer": "Ceci est un guide electoral indépendant et non partisan. Nous ne soutenons aucun parti politique ou candidat.",
+    "rights": "Tous droits réservés."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "search": "Rechercher",
+    "noResults": "Aucun résultat trouvé"
+  },
+  "country": {
+    "global": "Mondial",
+    "india": "Inde",
+    "usa": "États-Unis",
+    "uk": "Royaume-Uni",
+    "canada": "Canada",
+    "australia": "Australie",
+    "france": "France",
+    "germany": "Allemagne",
+    "southAfrica": "Afrique du Sud"
+  }
+}

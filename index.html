@@ -12,9 +12,26 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Step 1: Define the callback BEFORE the GT script loads -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,bn,es,fr,de,zh-CN,ar,ru,pt,ja',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+
+  <!-- Step 2: Load GT script — NO defer, NO async so it runs immediately -->
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
+
+  <!-- GT widget mounts here — kept invisible -->
+  <div id="google_translate_element" style="position:absolute;top:-9999px;left:-9999px;visibility:hidden;"></div>
 
   <!-- ══ ONBOARDING OVERLAY ══════════════════════════════════ -->
   <div class="onboard-overlay hidden" id="onboardOverlay">
@@ -45,14 +62,15 @@
         <span>iVote</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#news" class="nav-link">News</a>
-        <a href="#timeline" class="nav-link">Timeline</a>
-        <a href="#info" class="nav-link">Info</a>
-        <a href="#quiz" class="nav-link">Quiz</a>
-        <a href="#compare" class="nav-link">Compare</a>
+        <a href="#news"      class="nav-link">News</a>
+        <a href="#timeline"  class="nav-link">Timeline</a>
+        <a href="#info"      class="nav-link">Info</a>
+        <a href="#quiz"      class="nav-link">Quiz</a>
+        <a href="#compare"   class="nav-link">Compare</a>
         <a href="#assistant" class="nav-link">AI Chat</a>
       </div>
       <div class="nav-utils" id="navUtils">
+        <div id="languageSelector"></div>
         <select id="countrySelect" class="nav-select" onchange="selectCountry(this.value)">
           <option value="DEFAULT">🌍 Global</option>
           <option value="IN" selected>🇮🇳 India</option>
@@ -96,17 +114,14 @@
         </p>
         <div class="hero-btns">
           <a href="#assistant" class="btn-hero-primary">Ask iVote AI</a>
-          <a href="#timeline" class="btn-hero-ghost">View Timeline →</a>
+          <a href="#timeline"  class="btn-hero-ghost">View Timeline →</a>
         </div>
         <div class="hero-stats">
-          <div class="hero-stat"><span class="hs-num" id="hsStat1">970M+</span><span class="hs-label"
-              id="hsLbl1">Registered Voters</span></div>
+          <div class="hero-stat"><span class="hs-num" id="hsStat1">970M+</span><span class="hs-label" id="hsLbl1">Registered Voters</span></div>
           <div class="hs-divider"></div>
-          <div class="hero-stat"><span class="hs-num" id="hsStat2">7 Phases</span><span class="hs-label"
-              id="hsLbl2">Voting Phases</span></div>
+          <div class="hero-stat"><span class="hs-num" id="hsStat2">7 Phases</span><span class="hs-label" id="hsLbl2">Voting Phases</span></div>
           <div class="hs-divider"></div>
-          <div class="hero-stat"><span class="hs-num" id="hsStat3">EVM</span><span class="hs-label"
-              id="hsLbl3">Technology</span></div>
+          <div class="hero-stat"><span class="hs-num" id="hsStat3">EVM</span><span class="hs-label" id="hsLbl3">Technology</span></div>
         </div>
       </div>
 
@@ -231,8 +246,8 @@
           <div class="quiz-q" id="quizQuestion">Loading…</div>
           <div class="quiz-opts" id="quizOptions"></div>
           <div class="quiz-feedback" id="quizFeedback" style="display:none;"></div>
-          <button class="btn-primary quiz-next-btn" id="quizNextBtn" style="display:none;" onclick="nextQuestion()">Next
-            Question →</button>
+          <button class="btn-primary quiz-next-btn" id="quizNextBtn" style="display:none;"
+            onclick="nextQuestion()">Next Question →</button>
         </div>
         <div class="quiz-result" id="quizResult" style="display:none;">
           <div class="result-emoji" id="resultEmoji">🏆</div>
@@ -283,7 +298,7 @@
     <div class="container">
       <span class="section-eyebrow">AI Powered</span>
       <h2 class="section-title">iVote AI Assistant</h2>
-      <p class="section-desc">Powered by Claude AI. Ask anything about elections, rights, or voting procedures.</p>
+      <p class="section-desc">Powered by Groq AI. Ask anything about elections, rights, or voting procedures.</p>
       <div class="chat-wrap">
         <div class="chat-box">
           <div class="chat-head">
@@ -311,7 +326,8 @@
           </div>
           <div class="quick-pills" id="quickTopics"></div>
           <div class="chat-input-row">
-            <textarea id="chatInput" placeholder="Ask about voter registration, ID requirements, how votes are counted…"
+            <textarea id="chatInput"
+              placeholder="Ask about voter registration, ID requirements, how votes are counted…"
               onkeydown="handleKeyDown(event)" rows="1"></textarea>
             <button id="sendBtn" class="send-btn" onclick="sendMessage()" aria-label="Send">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -347,10 +363,9 @@
     </div>
   </footer>
 
-  <!-- Load configuration and data first, then app logic -->
   <script src="js/config.js"></script>
-  <script src="js/countries.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
-</body>
 
+</body>
 </html>

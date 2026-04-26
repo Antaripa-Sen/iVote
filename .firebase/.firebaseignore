@@ -1,0 +1,25 @@
+# Ignore unnecessary files
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Executables (blocked by Firebase free plan)
+*.exe
+*.dll
+*.bat
+*.sh
+
+# Git files
+.git/
+.gitignore
+
+# Firebase config (optional but safe)
+firebase.json

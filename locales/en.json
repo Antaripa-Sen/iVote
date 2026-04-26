@@ -1,0 +1,130 @@
+{
+  "app": {
+    "name": "iVote",
+    "tagline": "Your Global Election Guide"
+  },
+  "nav": {
+    "news": "News",
+    "timeline": "Timeline",
+    "info": "Info",
+    "quiz": "Quiz",
+    "compare": "Compare",
+    "aiChat": "AI Chat"
+  },
+  "onboard": {
+    "title": "Where are you voting?",
+    "subtitle": "Select your country for a fully personalized election guide — themes, data, and AI guidance built for your democracy.",
+    "skip": "Skip — browse global info →"
+  },
+  "hero": {
+    "eyebrow": "Election Commission of India · Official Guide",
+    "line1": "Your Vote.",
+    "line2": "Your Democracy.",
+    "para": "Get the complete guide to India's election process — from voter registration and EVM voting to results day. Powered by AI.",
+    "btnPrimary": "Ask iVote AI",
+    "btnGhost": "View Timeline →"
+  },
+  "stats": {
+    "stat1": "900M+",
+    "label1": "Eligible Voters",
+    "stat2": "1M+",
+    "label2": "Polling Stations",
+    "stat3": "28",
+    "label3": "Days Average"
+  },
+  "banner": {
+    "changeCountry": "Change Country"
+  },
+  "news": {
+    "title": "Latest Election News",
+    "pill": "India",
+    "readMore": "Read More",
+    "noNews": "No news available at the moment",
+    "loading": "Loading news..."
+  },
+  "timeline": {
+    "title": "Election Timeline",
+    "subtitle": "Key phases of the electoral process",
+    "phase": "Phase",
+    "title1": "Model Code of Conduct",
+    "title2": "Voting Days",
+    "title3": "Result Declaration"
+  },
+  "info": {
+    "title": "Voter Information",
+    "subtitle": "Everything you need to know about voting",
+    "register": "Register to Vote",
+    "verify": "Verify Name",
+    "idCard": "Get Voter ID",
+    "faq": "FAQ",
+    "resources": "Resources"
+  },
+  "checklist": {
+    "title": "Voter's Checklist",
+    "subtitle": "Track your voting preparation",
+    "complete": "Complete",
+    "pending": "Pending"
+  },
+  "quiz": {
+    "title": "Election Quiz",
+    "subtitle": "Test your knowledge about elections",
+    "start": "Start Quiz",
+    "next": "Next Question",
+    "submit": "Submit",
+    "score": "Your Score",
+    "restart": "Try Again",
+    "question": "Question",
+    "of": "of"
+  },
+  "compare": {
+    "title": "Compare Elections",
+    "subtitle": "See how different countries run their elections",
+    "select1": "Select First Country",
+    "select2": "Select Second Country",
+    "compareBtn": "Compare",
+    "population": "Population",
+    "votingAge": "Voting Age",
+    "system": "Electoral System",
+    "lastElection": "Last Election",
+    "nextElection": "Next Election"
+  },
+  "assistant": {
+    "title": "iVote AI Assistant",
+    "subtitle": "Ask anything about elections",
+    "placeholder": "Ask a question about elections, voting, or democracy...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "clear": "Clear Chat",
+    "welcome": "Hello! I'm your AI election guide. Ask me anything about voting, elections, or democracy!"
+  },
+  "footer": {
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact",
+    "disclaimer": "This is an independent, non-partisan election guide. We do not support any political party or candidate.",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "search": "Search",
+    "noResults": "No results found"
+  },
+  "country": {
+    "global": "Global",
+    "india": "India",
+    "usa": "United States",
+    "uk": "United Kingdom",
+    "canada": "Canada",
+    "australia": "Australia",
+    "france": "France",
+    "germany": "Germany",
+    "southAfrica": "South Africa"
+  }
+}
